@@ -13,7 +13,11 @@
 __WEAK enum tfm_hal_status_t tfm_hal_platform_init(void)
 {
     __enable_irq();
+
+    /* Only if UART1 is used by TF-M do we initialize it. */
+    #ifdef CONFIG_SECURE_UART1
     stdio_init();
+    #endif
 
     return TFM_HAL_SUCCESS;
 }
