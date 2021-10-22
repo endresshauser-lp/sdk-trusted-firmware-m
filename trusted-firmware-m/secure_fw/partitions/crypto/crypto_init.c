@@ -272,7 +272,7 @@ static void tfm_crypto_ipc_handler(void)
  * \brief Static buffer to be used by Mbed Crypto for memory allocations
  *
  */
-static uint8_t mbedtls_mem_buf[TFM_CRYPTO_ENGINE_BUF_SIZE] = {0};
+static uint8_t mbedtls_mem_buf[256] = {0};
 
 static psa_status_t tfm_crypto_engine_init(void)
 {
@@ -292,7 +292,7 @@ static psa_status_t tfm_crypto_engine_init(void)
      * the heap
      */
     mbedtls_memory_buffer_alloc_init(mbedtls_mem_buf,
-                                     TFM_CRYPTO_ENGINE_BUF_SIZE);
+                                     sizeof(mbedtls_mem_buf));
 
     /* Initialise the crypto accelerator if one is enabled */
 #ifdef CRYPTO_HW_ACCELERATOR
